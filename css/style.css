@@ -1,0 +1,7 @@
+.frame{
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    margin: 10px;
+    padding: 10px;   
+}
