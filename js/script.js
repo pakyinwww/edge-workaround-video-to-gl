@@ -17,12 +17,13 @@ const f1 = () => {
 
 // original to webgl
 const f2 = () => {
-    const canvas = document.getElementById('b');
+    const canvas = document.getElementById('glCanvas');
     const gl = canvas.getContext('webgl');
     const video = document.getElementById('vid');
-    var samplerUniform = null;
+    let samplerUniform = null;
     let texture;
     let glProgram;
+    let requestId;
 
     function initShaders() {
         //get shader source
@@ -75,7 +76,7 @@ const f2 = () => {
 
 
     function createTexture(source) {
-        var texture = gl.createTexture();
+        texture = gl.createTexture();
         gl.bindTexture(gl.TEXTURE_2D, texture);
         gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, source);
@@ -146,12 +147,14 @@ const f2 = () => {
 
 // original to canvas
 const f3 = () => {
-    const glCanvas = document.getElementById('b');
+    const glCanvas = document.getElementById('glCanvas');
     const canvas = document.getElementById('c');
     const ctx = canvas.getContext('2d');
+    const video = document.getElementById('vid');
 
     video.addEventListener('play', function() {
         (function loop() {
+            // clear canvas
             ctx.drawImage(glCanvas, 0, 0);
             setTimeout(loop, 1000 / 30); // drawing at 30fps
         })();
